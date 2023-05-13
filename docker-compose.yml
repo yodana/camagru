@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+    php-apache-environment:
+        container_name: camagru
+        build:
+            context: /Users/yodana/Documents/camagru
+            dockerfile: Dockerfile
+        depends_on:
+            - db
+        volumes:
+            - /Users/yodana/Documents/camagru/:/var/www/html/
+            - "./.htaccess:/var/www/html/.htaccess"
+        ports:
+            - 8000:80
+    db:
+        image: mysql:5.7
+        restart: unless-stopped
+        environment:
+            MYSQL_ROOT_PASSWORD: ${SQL_ROOT_PASS}
+            MYSQL_DATABASE: db_camagru
+            MYSQL_USER: ${SQL_USER}
+            MYSQL_PASSWORD: ${SQL_PASSWORD}
+        ports:
+            - "6033:3306"
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        restart: always
+        depends_on:
+            - db
+        environment:
+            PMA_HOST: db
+        ports:
+            - 8081:80
