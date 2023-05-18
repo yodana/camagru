@@ -1,8 +1,23 @@
 <?php
+
+    function send_email($email, $verify_code){
+        $to = $email;
+        $subject = "Welcome to Camagru!";
+        $message = "Please, click <a href=localhost:8000?verify=" . $verify_code . "> here </a> to confirm your account";
+        $headers = "From: your_email_address\r\n" .
+            "Reply-To: your_email_address\r\n" .
+            "X-Mailer: PHP/" . phpversion();
+        mail($to, $subject, $message, $headers);
+    }
+
     function verify($password, $email, $name) {
+        $env = parse_ini_file('.env');
+        $servername = "db";
+        $username = $env['SQL_USER'];
+        $sqlpassword = $env['SQL_PASSWORD'];
         $message = "";
         $regex_email = "/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/";
-        $regex_password = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/";
+        $regex_password = "/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z0-9@$!%*?&]{12,}$/";
         if ($password == "" || $email == "" || $name == ""){
             $message = "You need to fill all the form.";
           }
@@ -12,6 +27,24 @@
         else if (!preg_match($regex_password, $password)){
             $message = "The password is not strong enough.";
           }
+        try{
+            $dbco = new PDO("mysql:host=$servername;dbname=db_camagru", $username, $sqlpassword);
+            $dbco->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $sql = "SELECT COUNT(*) from users where users.username=:name";
+            $stmt = $dbco->prepare($sql);
+            $stmt->execute(['name' => $name]);
+            $c = $stmt->fetchColumn();
+            $sql = "SELECT COUNT(*) from users where users.email=:email";
+            $stmt = $dbco->prepare($sql);
+            $stmt->execute(['email' => $email]);
+            $c = $stmt->fetchColumn() + $c;
+            if ($c > 0){
+                $message = "User or email aleready taken.";
+            }
+        }
+        catch(PDOException $e){
+            echo "Erreur : " . $e->getMessage();
+        }
         return $message;
     }
 
@@ -21,21 +54,22 @@
         $servername = "db";
         $username = $env['SQL_USER'];
         $password = $env['SQL_PASSWORD'];
-        $_SESSION['errors'] = 'lol ca marche';
+        $verify_code = password_hash($env['SALT'] . $username, PASSWORD_DEFAULT);
         $errors = [];
-        $user_password = htmlspecialchars($_POST['password']);
+        $message = "";
         $email = htmlspecialchars($_POST['email']);
         $name = htmlspecialchars($_POST['username']);
-        $user_password = password_hash($user_password, PASSWORD_DEFAULT);
+        $user_password = $_POST['password'];
         $message = verify($user_password, $email, $name);
+        $user_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
         if ($message == ""){
             try{
                 $dbco = new PDO("mysql:host=$servername;dbname=db_camagru", $username, $password);
                 $dbco->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $sql = "INSERT INTO users (username, email, password, verify) VALUES (:name,:email,:password, 0)";
+                $sql = "INSERT INTO users (username, email, password, verify, verify_code) VALUES (:name,:email,:password, 0, :verify_code)";
                 $stmt = $dbco->prepare($sql);
-                $stmt->execute(['name' => $name, 'email' => $email, 'password' => $user_password]);
-                echo '<div> Base de données créée bien créée !</div>';
+                $stmt->execute(['name' => $name, 'email' => $email, 'password' => $user_password, 'verify_code' => $verify_code]);
+                send_email($email, $username);
             }
             catch(PDOException $e){
                 echo "Erreur : " . $e->getMessage();

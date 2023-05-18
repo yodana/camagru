@@ -3,12 +3,12 @@ services:
     php-apache-environment:
         container_name: camagru
         build:
-            context: /Users/yodana/Documents/camagru
+            context: /Users/dana/Documents/camagru
             dockerfile: Dockerfile
         depends_on:
             - db
         volumes:
-            - /Users/yodana/Documents/camagru/:/var/www/html/
+            - /Users/dana/Documents/camagru/:/var/www/html/
             - "./.htaccess:/var/www/html/.htaccess"
         ports:
             - 8000:80
@@ -22,6 +22,7 @@ services:
             MYSQL_PASSWORD: ${SQL_PASSWORD}
         ports:
             - "6033:3306"
+
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
         restart: always
