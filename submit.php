@@ -54,7 +54,7 @@
         $servername = "db";
         $username = $env['SQL_USER'];
         $password = $env['SQL_PASSWORD'];
-        $verify_code = password_hash($env['SALT'] . $username, PASSWORD_DEFAULT);
+        $verify_code = base64_encode(password_hash($env['SALT'] . $username, PASSWORD_DEFAULT));
         $errors = [];
         $message = "";
         $email = htmlspecialchars($_POST['email']);
@@ -70,6 +70,7 @@
                 $stmt = $dbco->prepare($sql);
                 $stmt->execute(['name' => $name, 'email' => $email, 'password' => $user_password, 'verify_code' => $verify_code]);
                 send_email($email, $username);
+                echo 'Veuillez confirmer votre compte dans votre boite mail!';
             }
             catch(PDOException $e){
                 echo "Erreur : " . $e->getMessage();

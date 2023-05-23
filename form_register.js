@@ -1,7 +1,6 @@
 const submitBtn = document.getElementById("submit-button");
 submitBtn.addEventListener('click', (event) => {
   event.preventDefault();
-  
   const form = document.getElementById("form");
   const xhr = new XMLHttpRequest();
   document.getElementById("logError").innerHTML = "";

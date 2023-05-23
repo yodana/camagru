@@ -1,16 +1,16 @@
 <?php
     session_start();
     $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-    if (isset($_GET['url']))
-        $url_id = explode("/", $_GET['url']);
-    if ($url == "/"){
+    var_dump($url);
+    $pattern_verify = '~^/verify/([0-9]+)/?$~';
+    if (preg_match($pattern_verify, $url)){
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/verify.php';
+    }
+    else if ($url == "/"){
         require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/homepage.php';
     }
     else if ($url == "/login"){
         require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/homepage.php';
-    }
-    else if ($url == "/verify"){
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/verify.php'; // probleme sur le routeur
     }
     else{
         require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/404.php';
