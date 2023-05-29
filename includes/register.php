@@ -23,8 +23,30 @@
                 </div>
             </div>
         </nav>
+        <section class="jumbotron text-center">
+            <div class="container">
+            <form id="form">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="username" name="username" class="form-control" id="username" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-primary" id="submit-button" onclick="this.disabled = 'disabled'">Submit</button>
+        </form>
         <p id="logError" class="text-danger"></p>
-        <script type="text/javascript" src="../verify_ajax.js"></script>
-        <a href="http://localhost:8000/" ><button type="button" class="btn btn-primary">Retour à l'acceuil</button></a>
+            <p>
+                <a href="#" class="btn btn-primary my-2">Login</a>
+            </p>
+            </div>
+        </section>
+        <script type="text/javascript" src="form_register.js"></script>
     </body>
 </html>

@@ -8,7 +8,7 @@
     <body>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Navbar</a>
+                <a class="navbar-brand" href="#">Camagru</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>
@@ -17,33 +17,30 @@
                     <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                    </li>
                 </div>
             </div>
         </nav>
-        <form id="form">
+        <section class="jumbotron text-center">
+            <div class="container">
+            <h1 class="jumbotron-heading">Bienvenue sur Camagru !</h1>
+
+            <form id="form">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="username" name="username" class="form-control" id="username" placeholder="Username">
             </div>
             <div class="form-group">
-                <label for="email">Email address</label>
-                <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            </div>
-            <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" name="password" class="form-control" id="password" placeholder="Password">
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
             </div>
             <button type="submit" class="btn btn-primary" id="submit-button" onclick="this.disabled = 'disabled'">Submit</button>
         </form>
         <p id="logError" class="text-danger"></p>
-        <script type="text/javascript" src="form_register.js"></script>
+            <p>
+                <a href="#" class="btn btn-primary my-2">Pas encore inscrit ?</a>
+            </p>
+            </div>
+        </section>
+        <script type="text/javascript" src="form_login.js"></script>
     </body>
 </html>

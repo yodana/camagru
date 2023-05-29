@@ -1,13 +1,15 @@
 <?php
 
     function send_email($email, $verify_code){
-        $to = $email;
+        $to = "camagru.yodana@gmail.com";
+        var_dump($verify_code);
+        $message = "Please, click <a href='http://localhost:8000/verify/" . $verify_code . "'> here </a> to confirm your account";
         $subject = "Welcome to Camagru!";
-        $message = "Please, click <a href=localhost:8000?verify=" . $verify_code . "> here </a> to confirm your account";
-        $headers = "From: your_email_address\r\n" .
-            "Reply-To: your_email_address\r\n" .
-            "X-Mailer: PHP/" . phpversion();
-        mail($to, $subject, $message, $headers);
+        $corps="<HTML><BODY><FONT FACE='Arial, Verdana' SIZE=2>";
+        $corps.=$message."</BODY></HTML>";
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        mail($to, $subject, $corps, $headers);
     }
 
     function verify($password, $email, $name) {
@@ -69,7 +71,7 @@
                 $sql = "INSERT INTO users (username, email, password, verify, verify_code) VALUES (:name,:email,:password, 0, :verify_code)";
                 $stmt = $dbco->prepare($sql);
                 $stmt->execute(['name' => $name, 'email' => $email, 'password' => $user_password, 'verify_code' => $verify_code]);
-                send_email($email, $username);
+                send_email($email, $verify_code);
                 echo 'Veuillez confirmer votre compte dans votre boite mail!';
             }
             catch(PDOException $e){

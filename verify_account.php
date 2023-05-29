@@ -11,12 +11,14 @@
             try{
                 $dbco = new PDO("mysql:host=$servername;dbname=db_camagru", $username, $password);
                 $dbco->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $sql = "SELECT * from `users`";
+                $sql = "UPDATE `users` SET verify=1 where verify_code = :valeur";
                 $stmt = $dbco->prepare($sql);
-                $stmt->execute();
-                $users = $stmt->fetchAll();
-                var_dump($users);
-                echo $users;
+                $stmt->execute(['valeur' => $verify_id]);
+                $d = $stmt->rowCount();
+                if ($d >= 1)
+                    echo "Compte bien verifie";
+                else
+                    echo "Erreur";
             }
             catch(PDOException $e){
                 echo "Erreur : " . $e->getMessage();

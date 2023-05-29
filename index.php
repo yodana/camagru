@@ -2,7 +2,7 @@
     session_start();
     $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     var_dump($url);
-    $pattern_verify = '~^/verify/([0-9]+)/?$~';
+    $pattern_verify = '~^/verify/([0-9a-zA-Z]+)/?$~';
     if (preg_match($pattern_verify, $url)){
         require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/verify.php';
     }
