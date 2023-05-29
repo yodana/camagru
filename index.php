@@ -12,6 +12,9 @@
     else if ($url == "/login"){
         require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/homepage.php';
     }
+    else if ($url == "/register"){
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/register.php';
+    }
     else{
         require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/404.php';
     }
