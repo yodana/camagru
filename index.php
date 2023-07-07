@@ -15,6 +15,9 @@
     else if ($url == "/register"){
         require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/register.php';
     }
+    else if ($url == "/webcam"){
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/webcam.php';
+    }
     else{
         require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/404.php';
     }

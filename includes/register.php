@@ -43,6 +43,6 @@
             </p>
             </div>
         </section>
-        <script type="text/javascript" src="form_register.js"></script>
+        <script type="text/javascript" src="../js/form_register.js"></script>
     </body>
 </html>

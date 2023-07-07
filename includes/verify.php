@@ -24,7 +24,7 @@
             </div>
         </nav>
         <p id="logError" class="text-danger"></p>
-        <script type="text/javascript" src="../verify_ajax.js"></script>
+        <script type="text/javascript" src="../js/verify_ajax.js"></script>
         <a href="/" ><button type="button" class="btn btn-primary">Retour à l'acceuil</button></a>
     </body>
 </html>

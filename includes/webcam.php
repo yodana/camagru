@@ -20,27 +20,12 @@
                 </div>
             </div>
         </nav>
-        <section class="jumbotron text-center">
-            <div class="container">
-            <h1 class="jumbotron-heading">Bienvenue sur Camagru !</h1>
-
-            <form id="form">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="username" name="username" class="form-control" id="username" placeholder="Username">
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" name="password" class="form-control" id="password" placeholder="Password">
-            </div>
-            <button type="submit" class="btn btn-primary" id="submit-button" onclick="this.disabled = 'disabled'">Submit</button>
-        </form>
-        <p id="logError" class="text-danger"></p>
-            <p>
-                <a href="/register" class="btn btn-primary my-2">Pas encore inscrit ?</a>
-            </p>
-            </div>
-        </section>
-        <script type="text/javascript" src="../js/form_login.js"></script>
+        <video id="video" width="640" height="480" autoplay></video>
+        <button id="snap">Snap Photo</button>
+        <canvas id="canvas" width="640" height="480"></canvas>
+        <img class="imgMove" id="imgMove" src="../img/42_Logo.png" width="50px" height="50px" ></img></div>
+        <img class="imgMove" id="imgMove" src="../img/42_Logo.png" width="50px" height="50px" ></img></div>
+        <img class="imgMove" id="imgMove" src="../img/42_Logo.png" width="50px" height="50px" ></img></div>
+        <script type="text/javascript" src="../js/func_webcam.js"></script>
     </body>
 </html>
